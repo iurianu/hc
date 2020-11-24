@@ -1,0 +1,305 @@
+/* Media Queries */
+
+@mixin media-lt-420px {
+  @media (max-width: 419px) { @content; } // custom media query for smaller phones
+}
+@mixin media-lt-576px {
+  @media (max-width: 575px) { @content; } // standard break point for xs size
+}
+@mixin media-lt-768px {
+  @media (max-width: 767px) { @content; } // standard break point for sm size
+}
+@mixin media-lt-992px {
+  @media (max-width: 991px) { @content; } // standard break point for md size
+}
+@mixin media-lt-1200px {
+  @media (max-width: 1199px) { @content; } // standard break point for lg size
+}
+@mixin media-gt-420px {
+  @media (min-width: 420px) { @content; } // custom media query for smaller phones
+}
+@mixin media-gt-576px {
+  @media (min-width: 576px) { @content; } // standard break point for xs size
+}
+@mixin media-gt-768px {
+  @media (min-width: 768px) { @content; } // standard break point for sm size
+}
+@mixin media-gt-992px {
+  @media (min-width: 992px) { @content; } // standard break point for md size
+}
+@mixin media-gt-1200px {
+  @media (min-width: 1200px) { @content; } // standard break point for lg size
+}
+@mixin media-gt-1800px {
+  @media (min-width: 1800px) { @content; } // standard break point for xl size
+}
+@mixin media-portrait {
+    @media (orientation: portrait) { @content; }
+}
+@mixin media-landscape {
+    @media (orientation: landscape) { @content; }
+}
+
+/* Fonts */
+
+@font-face {
+    font-family: "SnelRoundhand"; // H1 & H3
+    font-weight: 400;
+    font-style: normal;
+    src: url('../fonts/SnellBT-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "Lora"; // H2 & H5
+    font-weight: 400;
+    font-style: normal;
+    src: url('../fonts/Lora-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "PlayFair Display"; // blockquote
+    font-weight: 400;
+    font-style: normal;
+    src: url('../fonts/PlayfairDisplay-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "PlayFair Display"; // H4
+    font-weight: 900;
+    font-style: normal;
+    src: url('../fonts/PlayfairDisplay-Black.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "Open Sans"; //Paragraf
+    font-weight: 400;
+    font-style: normal;
+    src: url('../fonts/OpenSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "Open Sans"; //Checked List
+    font-weight: 700;
+    font-style: normal;
+    src: url('../fonts/OpenSans-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "Montserrat"; // Blockquote
+    font-weight: 500;
+    font-style: normal;
+    src: url('../fonts/Montserrat-Medium.ttf') format('truetype');
+}
+
+
+/* Reset browser input arrow design */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number],
+input[type=date] {
+  -moz-appearance: textfield;
+}
+
+.bootstrap-select .dropdown-toggle:focus {
+    outline: none!important;
+}
+
+.bootstrap-select .btn:focus {
+    outline: none !important;
+}
+
+:focus {
+  outline: none!important;
+}
+
+/* Mixins and variables */
+
+@mixin transition-mixin($key, $time, $type) {
+    -moz-transition: $key $time $type;
+    -webkit-transition: $key $time $type;
+    -o-transition: $key $time $type;
+    transition: $key $time $type; 
+}
+
+$theme-main-color: #404857; // grey
+$theme-light-color: #ae905a; // light-brown
+
+%float-left {float: left;}
+%float-right {float: right;}
+%center-align {text-align: center}
+%full-width  {width:  100%;}
+%full-height {height: 100%;}
+%vp-full-height {
+    @include media-lt-992px {
+        min-height: 100vmax; 
+    }
+    @include media-gt-992px {
+        min-height: 100vh;
+    }
+}
+%auto-width  {width:  auto;}
+%auto-height {height: auto;}
+%auto-margin {display: block; margin: 0 auto;}
+%no-left-margin {margin-left: 0;}
+
+/* Default properties */
+
+html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+    @include transition-mixin(all, 0.5s, ease);
+    font-family: 'Open Sans', Arial, sans-serif;
+    background-color: #FFF;
+}
+
+body {
+    &.modal-open {
+        padding-right: 0 !important;
+    }
+}
+
+.d-flex {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.visible-md {@include media-lt-768px {display: none !important;}}
+.visible-lg {@include media-lt-992px {display: none !important;}}
+.hidden-md  {@include media-lt-768px {display: none !important;}}
+.hidden-lg  {@include media-gt-992px {display: none !important;}}
+
+%text-style-match {
+    font-weight: 400;
+    font-style: normal;  
+    color: #000;
+}
+
+%text-Monserrat {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+h1 {
+    @extend %text-style-match;
+    @extend %center-align;
+    font-family: 'SnelRoundhand', cursive;
+    font-size: 75px;
+    line-height: 1;    
+    @include media-lt-1200px {
+        font-size: 65px;
+    }
+    @include media-lt-576px {
+        font-size: 60px;
+    }
+    @include media-lt-420px {
+        font-size: 45px;
+    }
+}
+
+h2 {
+    @extend %text-style-match;
+    @extend %center-align;
+    font-family: 'Lora', sans-serif;
+    font-size: 44px;
+    @include media-lt-768px {
+        font-size: 40px;
+    }
+    @include media-lt-576px {
+        font-size: 35px;
+    }
+    @include media-lt-420px {
+        font-size: 30px;
+    }
+}
+
+h3 {
+    @extend %text-style-match;
+    font-family: 'SnelRoundhand', cursive;
+    font-size: 65px;
+    position: relative;
+    padding-bottom: 3rem;
+}
+
+h4 {
+    @extend %text-style-match;
+    font-family: 'PlayFair Display', sans-serif;
+    font-weight: 900;
+    font-size: 20px;
+    @include media-lt-1200px {
+        font-size: 16px;
+    }
+    @include media-lt-992px {
+        @include media-gt-768px {
+            height: 40px;
+            padding-bottom: 40px;
+        }
+    }
+}
+
+h5 {
+    @extend %text-style-match;
+    font-family: 'Lora', sans-serif;
+    font-size: 75px;
+    @extend %center-align;
+    @include media-lt-1200px {
+        font-size: 65px;
+    }
+    @include media-lt-576px {
+        font-size: 55px;
+    }
+    @include media-lt-420px {
+        font-size: 38px;
+    }
+}
+
+blockquote {
+    @extend %text-Monserrat;
+    @extend %center-align;
+    margin: 2.5rem 0 1rem;
+}
+
+p {
+    @extend %text-style-match;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+}
+
+ul {
+    @extend p;
+    margin-left: -20px;
+    padding-left: 0;
+    list-style: none;
+    font-size: 14px;
+    li {
+        position: relative;
+        padding-left: 20px;
+        &:before {
+            content: "";
+            position: absolute;
+            top: 8px;
+            left: 0;
+            background-color: #a6864e;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+        }
+    }
+    &.lower-alpha-list {
+        margin-left: 15px;
+        list-style: lower-alpha;
+        li {
+            padding-left: 0;
+            &:before {
+                width: 0;
+                height: 0;
+                background-color: transparent;
+            }
+        }        
+    }
+}

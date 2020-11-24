@@ -1,0 +1,258 @@
+/* Media Queries */
+
+@mixin media-lt-420px {
+  @media (max-width: 419px) { @content; } // custom media query for smaller phones
+}
+@mixin media-lt-576px {
+  @media (max-width: 575px) { @content; } // standard break point for xs size
+}
+@mixin media-lt-768px {
+  @media (max-width: 767px) { @content; } // standard break point for sm size
+}
+@mixin media-lt-992px {
+  @media (max-width: 991px) { @content; } // standard break point for md size
+}
+@mixin media-lt-1200px {
+  @media (max-width: 1199px) { @content; } // standard break point for lg size
+}
+@mixin media-gt-420px {
+  @media (min-width: 420px) { @content; } // custom media query for smaller phones
+}
+@mixin media-gt-576px {
+  @media (min-width: 576px) { @content; } // standard break point for xs size
+}
+@mixin media-gt-768px {
+  @media (min-width: 768px) { @content; } // standard break point for sm size
+}
+@mixin media-gt-992px {
+  @media (min-width: 992px) { @content; } // standard break point for md size
+}
+@mixin media-gt-1200px {
+  @media (min-width: 1200px) { @content; } // standard break point for lg size
+}
+@mixin media-gt-1800px {
+  @media (min-width: 1800px) { @content; } // standard break point for xl size
+}
+@mixin media-portrait {
+    @media (orientation: portrait) { @content; }
+}
+@mixin media-landscape {
+    @media (orientation: landscape) { @content; }
+}
+
+%center-align {text-align: center}
+
+%after-mixin {
+    position: absolute;
+    left: calc(50% - 30px);
+    background-color: #FFF;
+    border-radius: 50%;
+    background-size: 35px 35px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 60px;
+    height: 60px;
+    top: -80px;
+    opacity: 0.5;
+    font-size: 350%;
+    line-height: 1.05;
+    &:hover {
+        opacity: 0.8;
+        transition: opacity 0.5s ease;
+    }
+}
+
+%label-mixin {
+    width: 100%;
+    position: relative;
+    cursor: pointer;
+    &:after {
+        @extend %after-mixin;
+    }
+    .glyph {
+        @extend %after-mixin;
+    }
+    @include media-lt-992px {
+        padding-left: 100px;
+        text-align: left;
+        &:after {
+            left: 25px;
+            bottom: calc(100% - 40px);
+        }
+        .glyph {
+            left: 25px;
+            bottom: calc(100% - 40px);
+        }
+    }
+}
+
+%b-a-list-options {
+    padding-left: 0;
+    &:after, &:before {
+        background-image: none !important;
+        background-color: transparent !important;
+    }
+}
+
+.cookie-modal {
+    &.modal-extended {
+        max-width: 65%;
+        margin: .5rem auto;
+        @include media-gt-992px {
+            @include media-lt-1200px {
+                max-width: 85%;
+            }
+        }
+        @include media-lt-992px {
+            max-width: 90%;
+        }
+    }
+    .modal-header {
+        h2 {
+            width: 100%;
+            font-size: 2rem;
+            @extend %center-align;
+        }
+        #bs-gdpr-cookies-modal-message {
+            @extend %center-align;
+        }
+        #bs-gdpr-cookies-modal-advanced-title {
+            @extend %center-align;
+        }
+    }
+    .modal-body {
+        padding: 1rem 4rem;
+        @include media-lt-576px {
+            padding: 1rem;
+        }
+    }
+    ul {
+        margin: 0;
+        padding: 0 0 0 20px;
+        &.cookie-type-list {
+            list-style:none;
+            padding-left: 0.2rem;
+            display: flex;
+            justify-content: space-between;
+            li {
+                display: flex;
+                width: 20%;
+                height: 150px;
+                margin: 10px 1rem 0 0;
+                padding: 25px 10px;
+                text-align: center;
+                background-color: lightgrey;
+                border: 1px solid lightgrey;
+                align-items: flex-end;
+                &:hover, &:active, &.active {
+                    border: 1px solid grey;
+                }
+                input[type='checkbox']{
+                    display: none;
+                }
+                label {
+                    @extend %label-mixin;
+                }
+            }
+            @include media-lt-992px {
+                flex-direction: column;
+                li {
+                    width: 100%;
+                    height: 70px;
+                    align-items: center;
+                }
+            }
+            li {
+               @extend %b-a-list-options;
+            }            
+        }
+    }
+    label[for="bs-gdpr-cookies-modal-option-necessary"] {        
+        &:after {
+            content: "\269D";
+        }
+    }
+    label[for="bs-gdpr-cookies-modal-option-preferences"] {        
+        &:after {
+            content: "\2699";   
+            line-height: 1.2 !important;
+        }
+    }
+    label[for="bs-gdpr-cookies-modal-option-analytics"] {
+        &:after {
+            content: "\2608";   
+            transform: rotate(-90deg);
+        }
+    }
+    label[for="bs-gdpr-cookies-modal-option-marketing"] {
+        &:after {
+            content: "\26FC";            
+        }
+    }
+    span#no-cookie-select {
+        display: block;
+        @extend %label-mixin;
+        padding-bottom: 10px;
+        /*&:before {
+            background-image: url('./images/ban.png');  
+        }*/
+    }
+}
+
+#bs-gdpr-cookies-modal-advanced-types {
+    display: none;
+    h5 {
+        font-size: 1.8rem;
+    }
+}
+
+#list-holder {
+    width: 100%;
+    padding-top: 20px;
+    ul {        
+        list-style-type: circle;
+        li {
+            font-size: 14px;
+            @extend %b-a-list-options;
+        }
+    }
+    #deselected-options {
+        ul {
+            display: none;
+            &.connectivity-list {
+                display: block;
+            }
+            li {
+                @extend %b-a-list-options;
+            }
+        }
+    }
+}
+
+#cookie-cog {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: lightgrey;
+    border: 1px solid grey;
+    cursor: pointer;
+    z-index: 100;
+    a {
+        display: block;
+        height: 100%;
+        width: 100%;
+        text-align: center;
+        &:hover, &:focus {
+            text-decoration: none;
+        }
+        span {
+            font-size: 40px;
+            font-weight: 400;
+            line-height: 1.2;
+            text-align: center;
+        }
+    }
+}
