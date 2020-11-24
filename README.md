@@ -1,1 +1,1 @@
-# hc
+# Landing Page for Hotel Central
